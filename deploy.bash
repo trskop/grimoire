@@ -22,6 +22,7 @@ function main() {
 
     if (( $(git -C "${repoCloneDir}" status -s | wc -l) )); then
         git -C "${repoCloneDir}" commit -m "Release $(date --iso-8601=minutes)"
+        git -C "${repoCloneDir}" push
     fi
 }
 
