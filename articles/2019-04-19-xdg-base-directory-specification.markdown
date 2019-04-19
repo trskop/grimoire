@@ -103,5 +103,7 @@ xdgDirs = XdgDirs
 
 * [XDG Base Directory Specification
   ](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+* [ArchWiki: XDG Base Directory
+  ](https://wiki.archlinux.org/index.php/XDG_Base_Directory)
 * [Good default for XDG\_RUNTIME\_DIR?
   ](https://serverfault.com/questions/388840/good-default-for-xdg-runtime-dir)
