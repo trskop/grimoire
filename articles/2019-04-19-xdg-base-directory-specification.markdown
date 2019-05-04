@@ -5,7 +5,7 @@ title: Life With XDG Base Directory Specification
 [XDG Base Directory Specification
 ](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 provides a lot of interesting directories that can be used to avoid clutter in
-ones `$HOME`.  Unfortunately, these directories can be overriden using
+one's `$HOME`.  Unfortunately, these directories can be overriden using
 environment variables. This is annoying to work with, unless one knows how they
 should be properly resolved.  In here we will describe how they should be
 resolved in various languages.
