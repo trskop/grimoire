@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-set -ex
+set -euo pipefail
+set -x
 
 function main() {
     local repoUrl='git@github.com:trskop/trskop.github.io.git'
