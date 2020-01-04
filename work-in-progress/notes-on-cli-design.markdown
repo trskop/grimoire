@@ -14,6 +14,17 @@ These are very opinionated guidelines for creating command line tools with a
 good UX.  Be warned, this is still a work in progress.
 
 
+# Intuitive vs. Easy vs. Simple vs. Consistent
+
+TODO:
+*   Intuitive = resembles what we already know.
+*   Easy = does what we want without too much investment, doesn't care about
+    scalability, maintainability, cleanness.
+*   Simple = conceptually simple, understandable, doesn't imply easy or no
+    learning curve.  Simple may have steep learning curve.
+*   Consistent = modularity, clean semantics, reliable semantics.
+
+
 # Documentation
 
 Three types of documentation should be provided:
