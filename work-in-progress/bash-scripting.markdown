@@ -20,9 +20,9 @@ There are few possible solutions to this problem:
     restrict ourselves to just a small subset of Bash features.
 
     Anything more complicated will eventually have to handle differences
-    between system or use sub-par solutions to be portable.
+    between systems, or use sub-par solutions to be portable.
 
-2.  Use Nix to handle dependencies of our scripts including Bash itself.
+2.  Use Nix to handle dependencies of our scripts, including Bash itself.
 
     One of the most common reasons Bash scripts are used is that it's so
     common.  It's not everywhere, but even if it's not immediately available,
@@ -33,13 +33,13 @@ There are few possible solutions to this problem:
     really important, the script itself.
 
     This is not always possible.  Sometimes we are writing a system script, or
-    a script that bootstraps installation on multiple platform.  Reasons for
+    a script that is bootstraps installation on multiple platform.  Reasons for
     needing portable script are endless.
 
 In this article we will focus mostly on the last option, non-portable scripts.
 This doesn't mean that we will abandon all good practices, quite the opposite.
 It will free us from trying to make the script portable, which will allow us to
-write Bash scripts that are:
+write Bash scripts that:
 
 *   Follow good programming practices.  Yes, Bash scripting is programming.
     This is easily forgotten under the weight of portability and focus on
