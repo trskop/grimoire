@@ -283,9 +283,29 @@ fi
 some_variable.**
 
 
+# Builtins
+
+**TODO: What are builtins, why should I be interested in them, and where are
+they documented?**
+
+**TODO: Describe `builtin` builtin too.**
+
+
+# When Bash Commands
+
+**TODO: What is a command and how does Bash execute it.  Why is it important to
+know?**
+
+
 # Functions
 
 **TODO: Start with few examples.**
+
+
+## How To Name a Function
+
+**TODO: What are the valid characters in a function; how is it resolved
+compared to commands; how can I find what functions are defined.**
 
 
 ## Local Variables And Functions
@@ -395,6 +415,11 @@ EOF
 
 
 ## Direnv
+
+**TODO**
+
+
+# Nix
 
 **TODO**
 
