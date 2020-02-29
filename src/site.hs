@@ -1,20 +1,18 @@
 -- |
 -- Module:      Main
--- Description: TODO: Module synopsis
--- Copyright:   (c) 2019 Peter Trško
+-- Description: Grimoire generator
+-- Copyright:   (c) 2019-2020 Peter Trško
 -- License:     BSD3
 --
 -- Maintainer:  peter.trsko@gmail.com
 -- Stability:   experimental
 -- Portability: GHC specific language extensions.
 --
--- TODO: Module description.
+-- Grimoire generator.
 module Main
     ( main
     )
   where
-
-import Data.Monoid (mconcat)
 
 import Hakyll
 
