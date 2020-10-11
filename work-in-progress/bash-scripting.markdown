@@ -24,7 +24,7 @@ There are few possible solutions to this problem:
 
 2.  Use Nix to handle dependencies of our scripts, including Bash itself.
 
-    One of the most common reasons Bash scripts are used is that it's so
+    One of the most common reasons Bash scripts are used is that Bash is so
     common.  It's not everywhere, but even if it's not immediately available,
     it is usually easy to install it.  Nix, not so much.  Nix also has a steep
     learning curve, and it itself becomes part of the script.
@@ -33,7 +33,7 @@ There are few possible solutions to this problem:
     really important, the script itself.
 
     This is not always possible.  Sometimes we are writing a system script, or
-    a script that is bootstraps installation on multiple platform.  Reasons for
+    a script that bootstraps installation on multiple platform.  Reasons for
     needing portable script are endless.
 
 In this article we will focus mostly on the last option, non-portable scripts.
@@ -94,6 +94,10 @@ All we need now is to have required Bash version in our
 tricks and tools that can make this easier on us if we need to maintain
 multiple environments like these.  To see how that can be done read through
 [*Environment Management*](#environment-management) section.
+
+Some reading material:
+
+*   [nixCraft: Make Linux/Unix Script Portable With `#!/usr/bin/env` As a Shebang](https://www.cyberciti.biz/tips/finding-bash-perl-python-portably-using-env.html)
 
 
 ## Generic Form of Shebang
@@ -424,6 +428,11 @@ EOF
 **TODO**
 
 
+# Direnv+Nix
+
+**TODO**
+
+
 # Bash Tips and Tricks, Mostly Tricks
 
 
@@ -444,6 +453,13 @@ EOF
 
 ## Read NUL ('\0') Terminated Input Into an Array
 
+Since Bash 4.4 `mapfile` provided `-d DELIMITER` option.  This is an example of
+using it for `\0` delimited entries:
+
 ```Bash
 mapfile -t -d '' < <(find . -print0)
 ```
+
+## Delimiter, Separator, and Terminator
+
+<https://stackoverflow.com/questions/9118769/when-to-use-the-terms-delimiter-terminator-and-separator>

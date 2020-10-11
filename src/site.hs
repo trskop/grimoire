@@ -14,7 +14,10 @@ module Main
     )
   where
 
-import Hakyll
+import Data.Bifunctor (second)
+
+import Hakyll hiding (pandocCompiler)
+import Text.Pandoc.Definition
 
 
 config :: Configuration
@@ -32,6 +35,10 @@ main = hakyllWith config do
         route idRoute
         compile compressCssCompiler
 
+    match "js/*" do
+        route idRoute
+        compile copyFileCompiler
+
     match "templates/*"
         $ compile templateCompiler
 
@@ -39,8 +46,11 @@ main = hakyllWith config do
         route idRoute
         compile do
             articles <- loadAll "articles/*" >>= recentFirst
+            projects <- loadAll "projects/*" >>= recentFirst
+
             let indexCtx = mconcat
-                    [ listField "articles" articleCtx (return articles)
+                    [ listField "articles" articleCtx (pure articles)
+                    , listField "projects" projectCtx (pure projects)
                     , constField "title" "Grimoire"
                     , defaultContext
                     ]
@@ -50,19 +60,32 @@ main = hakyllWith config do
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= relativizeUrls
 
+    match "projects/**/*.html" do
+        route idRoute
+        compile copyFileCompiler
+
+    match "projects/*.markdown" do
+        route (setExtension "html")
+        compile do
+            pandocCompiler
+                >>= loadAndApplyTemplate "templates/article.html" projectCtx
+                >>= loadAndApplyTemplate "templates/default.html" projectCtx
+                >>= relativizeUrls
+
     match "articles/*" do
         route (setExtension "html")
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/article.html" articleCtx
-            >>= loadAndApplyTemplate "templates/default.html" articleCtx
-            >>= relativizeUrls
+        compile do
+            pandocCompiler
+                >>= loadAndApplyTemplate "templates/article.html" articleCtx
+                >>= loadAndApplyTemplate "templates/default.html" articleCtx
+                >>= relativizeUrls
 
     create ["archive.html"] do
         route idRoute
         compile do
             articles <- loadAll "articles/*" >>= recentFirst
             let archiveCtx = mconcat
-                    [ listField "articles" articleCtx (return articles)
+                    [ listField "articles" articleCtx (pure articles)
                     , constField "title" "Spell Archive"
                     , defaultContext
                     ]
@@ -77,3 +100,30 @@ main = hakyllWith config do
         [ dateField "date" "%d %B %Y"
         , defaultContext
         ]
+
+    projectCtx :: Context String
+    projectCtx = defaultContext
+
+pandocCompiler :: Compiler (Item String)
+pandocCompiler = pandocCompilerWithTransform
+        defaultHakyllReaderOptions
+        defaultHakyllWriterOptions
+        \(Pandoc meta blocks) ->
+            Pandoc meta (transform <$> blocks)
+  where
+    transform :: Block -> Block
+    transform = \case
+        CodeBlock (identifier, classes, keyValue) body ->
+            CodeBlock (identifier, "code-block" : classes, keyValue) body
+
+        OrderedList attrs items ->
+            OrderedList attrs (fmap transform <$> items)
+
+        BulletList items ->
+            BulletList (fmap transform <$> items)
+
+        DefinitionList items ->
+            DefinitionList (second (fmap (fmap transform)) <$> items)
+
+        block ->
+            block

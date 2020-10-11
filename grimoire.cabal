@@ -7,7 +7,7 @@ license:              BSD3
 license-file:         LICENSE
 author:               Peter Trško
 maintainer:           peter.trsko@gmail.com
-copyright:            (c) 2019 Peter Trško
+copyright:            (c) 2019-2020 Peter Trško
 category:             Blog
 build-type:           Simple
 cabal-version:        >=1.10
@@ -22,10 +22,12 @@ executable grimoire
   default-language:     Haskell2010
   default-extensions:
       BlockArguments
+    , LambdaCase
     , OverloadedStrings
 
   build-depends:
       base >= 4.7 && < 5
-    , hakyll
+    , hakyll >= 4.13 && < 5
+    , pandoc-types
 
-  ghc-options:          -Wall -Werror -threaded
+  ghc-options:          -Wall -Wcompat -Werror -threaded

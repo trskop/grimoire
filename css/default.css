@@ -2,10 +2,10 @@ body {
     color: black;
     font-size: 16px;
     margin: 0px auto 0px auto;
-    width: 600px;
+    width: 800px;
 }
 
-div#header {
+header {
     border-bottom: 2px solid black;
     margin-bottom: 30px;
     padding: 12px 0px 12px 0px;
@@ -19,15 +19,15 @@ div#logo a {
     text-decoration: none;
 }
 
-div#header #navigation {
+header nav {
     text-align: right;
 }
 
-div#header #navigation a:before {
+header nav a:before {
     content: "| "
 }
 
-div#header #navigation a {
+header nav a {
     color: black;
     font-size: 18px;
     font-weight: bold;
@@ -36,7 +36,7 @@ div#header #navigation a {
     text-transform: uppercase;
 }
 
-div#footer {
+footer {
     border-top: solid 2px black;
     color: #555;
     font-size: 12px;
@@ -53,8 +53,86 @@ h2 {
     font-size: 20px;
 }
 
-div.info {
+aside.info {
     color: #555;
     font-size: 14px;
     font-style: italic;
+}
+
+pre.code-block {
+    position: relative;
+    background-color: #f8f8f8;
+    padding-top: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+}
+
+.copy-code-button,
+.copy-code-button span {
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.copy-code-button {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    overflow: visible;
+    padding: 0.65em 0.8em;
+    border: 0;
+    border-radius: 0;
+    outline: 0;
+    font-size: 1em;
+    background-color: #808080;
+    color: #fff;
+    opacity: 0;
+}
+
+.copy-code-button span {
+    border-radius: 3px;
+    background: inherit;
+    pointer-events: none;
+}
+
+.copy-code-button .error,
+.copy-code-button .success {
+    position: absolute;
+    z-index: -100;
+    top: 50%;
+    right: 0;
+    padding: 0.5em 0.65em;
+    font-size: 0.825em;
+    opacity: 0;
+    transform: translate(0, -50%);
+}
+
+.copy-code-button.error .error,
+.copy-code-button.success .success {
+    right: 100%;
+    opacity: 1;
+    transform: translate(-115%, -50%);
+}
+
+.copy-code-button:focus,
+pre:hover .copy-code-button {
+    opacity: 1;
+}
+
+a.anchor-link {
+    visibility: hidden;
+    font-size: 1rem;
+    text-decoration: none;
+    margin-left: 0.5ex;
+    color: #808080;
+}
+
+h1:hover a.anchor-link,
+h2:hover a.anchor-link,
+h3:hover a.anchor-link,
+h4:hover a.anchor-link,
+h5:hover a.anchor-link,
+h6:hover a.anchor-link {
+    visibility: visible;
 }
