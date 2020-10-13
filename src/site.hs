@@ -125,5 +125,11 @@ pandocCompiler = pandocCompilerWithTransform
         DefinitionList items ->
             DefinitionList (second (fmap (fmap transform)) <$> items)
 
+        Div attr blocks ->
+            Div attr (transform <$> blocks)
+
+        BlockQuote blocks ->
+            BlockQuote (transform <$> blocks)
+
         block ->
             block

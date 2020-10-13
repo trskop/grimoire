@@ -1,64 +1,54 @@
-pre > code.sourceCode {
+/* Based on output produced by Pandoc */
+
+pre.code-block > code {
     white-space: pre;
-    position: relative;
 }
 
-pre > code.sourceCode > span {
+pre.code-block > code > span {
     display: inline-block;
     line-height: 1.25;
-}
-
-pre > code.sourceCode > span:empty {
-    height: 1.2em;
-}
-
-code.sourceCode > span {
     color: inherit;
     text-decoration: inherit;
 }
 
-div.sourceCode {
-    margin: 1em 0;
-}
-
-pre.sourceCode {
-    margin: 0;
+pre.code-block > code > span:empty {
+    height: 1.2em;
 }
 
 @media screen {
-    div.sourceCode {
+    pre.code-block {
         overflow: auto;
     }
 }
 
 @media print {
-    pre > code.sourceCode {
+    pre.code-block > code {
         white-space: pre-wrap;
     }
 
-    pre > code.sourceCode > span {
+    pre.code-block > code > span {
         text-indent: -5em;
         padding-left: 5em;
     }
 }
 
-pre.numberSource {
+pre.code-block.numberSource {
     margin-left: 3em;
     border-left: 1px solid #aaaaaa;
     padding-left: 4px;
 }
 
-pre.numberSource code {
+pre.code-block.numberSource code {
     counter-reset: source-line 0;
 }
 
-pre.numberSource code > span {
+pre.code-block.numberSource code > span {
     position: relative;
     left: -4em;
     counter-increment: source-line;
 }
 
-pre.numberSource code > span > a:first-child::before {
+pre.code-block.numberSource code > span > a:first-child::before {
     content: counter(source-line);
     position: relative;
     left: -1em;
@@ -78,7 +68,7 @@ pre.numberSource code > span > a:first-child::before {
 }
 
 @media screen {
-    pre > code.sourceCode > span > a:first-child::before {
+    pre.code-block > code > span > a:first-child::before {
         text-decoration: underline;
     }
 }
@@ -97,7 +87,7 @@ code span.do { color: #ba2121; font-style: italic; } /* Documentation */
 code span.dt { color: #902000; } /* DataType */
 code span.dv { color: #40a070; } /* DecVal */
 code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
+code span.ex { color: #007020; } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
 code span.im { } /* Import */

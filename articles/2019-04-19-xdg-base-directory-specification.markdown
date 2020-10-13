@@ -1,11 +1,12 @@
 ---
 title: Life With XDG Base Directory Specification
+updated: "2020-10-13"
 ---
 
 [XDG Base Directory Specification
 ](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 provides a lot of interesting directories that can be used to avoid clutter in
-one's `$HOME`.  Unfortunately, these directories can be overriden using
+one's `$HOME`.  Unfortunately, these directories can be overridden using
 environment variables. This is annoying to work with, unless one knows how they
 should be properly resolved.  In here we will describe how they should be
 resolved in various languages.
@@ -13,7 +14,7 @@ resolved in various languages.
 
 # Bash
 
-```bash
+``` {.bash data-lang=bash}
 readonly config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}"
 readonly data_dir="${XDG_DATA_HOME:-${HOME}/.local/share}"
 readonly cache_dir="${XDG_CACHE_HOME:-${HOME}/.cache}"
@@ -26,7 +27,7 @@ readonly config_dirs="${XDG_CONFIG_DIRS:-/etc/xdg}"
 
 # Dhall
 
-```dhall
+``` {.dhall data-lang=dhall}
 let home = env:HOME as Text
 let temp-dir = env:TMPDIR as Text ? "/tmp"
 
@@ -58,8 +59,16 @@ Dependencies:
 - [`base`](http://hackage.haskell.org/package/base)
 - [`directory`](http://hackage.haskell.org/package/directory) ≥ 1.3.2.0
 
-```haskell
-{-# LANGUAGE RecordWildCards #-}
+``` {.haskell data-lang=haskell}
+-- |
+-- Description: An example of accessing XDG directories in Haskell
+-- Copyright:   (c) 2019 Peter Trško
+-- License:     BSD3
+--
+-- An example of accessing XDG directories in Haskell using minimum amount of
+-- dependencies while still not requiring us to manually write the low-level
+-- code. The only exception is 'getXdgDirectory', which requires sensible
+-- defaults and may always need some hand-holding.
 module XdgDirs
   where
 

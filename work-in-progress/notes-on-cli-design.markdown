@@ -17,12 +17,12 @@ good UX.  Be warned, this is still a work in progress.
 # Intuitive vs. Easy vs. Simple vs. Consistent
 
 TODO:
-*   Intuitive = resembles what we already know.
-*   Easy = does what we want without too much investment, doesn't care about
+*   Intuitive — resembles what we already know.
+*   Easy — does what we want without too much investment, doesn't care about
     scalability, maintainability, cleanness.
-*   Simple = conceptually simple, understandable, doesn't imply easy or no
-    learning curve.  Simple may have steep learning curve.
-*   Consistent = modularity, clean semantics, reliable semantics.
+*   Simple — conceptually simple, understandable, doesn't imply easy or no
+    learning curve.  Simple may even have steep learning curve, like maths.
+*   Consistent — modularity, clean semantics, reliable semantics.
 
 
 # Documentation
@@ -69,7 +69,7 @@ part of error message then the error message and help message should be printed
 to standard error output.  Reason for this is if you don't support pagination
 of `--help` output users can easily do:
 
-```
+```bash
 some-tool --help | less
 ```
 
@@ -78,7 +78,7 @@ error process where users will try the above first and only if they know enough
 shell hackery they'll redirect `stderr` with `stdout`.  For example in Bash
 that would look like:
 
-```
+```bash
 some-tool --help 2>&1 | less
 ```
 
@@ -114,20 +114,26 @@ TODO:
 TODO: How much output should we print? Verbosity options?
 
 
-#  Unicode and Emoji
+# Unicode and Emoji
 
 TODO: When is it a good idea to use Unicode/emojis?
+
+
+# Machine Readable Output
+
+TODO: Why would I want this? Emphasise the contrast with previous (Unicode and
+Emoji).
+
+
+# Scriptability
+
+TODO: What does it mean?
 
 
 # Configuration File
 
 TODO: Describe how configuration files should be applied, where they should be
 stored, and what formats are good and which should be avoided.
-
-
-# Scriptability
-
-TODO: What does it mean?
 
 
 # Command Line Options

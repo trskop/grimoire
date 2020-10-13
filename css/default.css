@@ -2,19 +2,17 @@ body {
     color: black;
     font-size: 16px;
     margin: 0px auto 0px auto;
-    width: 800px;
 }
 
 header {
     border-bottom: 2px solid black;
-    margin-bottom: 30px;
-    padding: 12px 0px 12px 0px;
+    padding: 0.5rem 0 0.5rem 0;
+    margin: 0 0.5rem 1em 0.5rem;
 }
 
 div#logo a {
     color: black;
     float: left;
-    font-size: 18px;
     font-weight: bold;
     text-decoration: none;
 }
@@ -23,15 +21,34 @@ header nav {
     text-align: right;
 }
 
-header nav a:before {
-    content: "| "
+header nav a::before {
+    content: "| ";
+}
+
+@media screen and (max-width:667px) {
+  header {
+    font-size: 0.8rem;
+  }
+  header nav {
+    text-align: left;
+  }
+  header nav a {
+    font-size: 0.8rem;
+  }
+}
+@media screen and (min-width:668px) {
+  header {
+    font-size: 1.25rem;
+  }
+  header nav a {
+    font-size: 1.25rem;
+  }
 }
 
 header nav a {
     color: black;
-    font-size: 18px;
     font-weight: bold;
-    margin-left: 12px;
+    margin-left: 0.5rem;
     text-decoration: none;
     text-transform: uppercase;
 }
@@ -39,42 +56,67 @@ header nav a {
 footer {
     border-top: solid 2px black;
     color: #555;
-    font-size: 12px;
-    margin-top: 30px;
-    padding: 12px 0px 12px 0px;
+    font-size: 0.8rem;
+    padding: 0.5rem 0 0.5rem 0;
+    margin: 1em 0.5rem 0 0.5rem;
     text-align: right;
 }
 
+main {
+  width: 60vw;
+  margin-left: 20vw;
+  min-height: 90vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 2.5rem 0 1rem 0;
+}
+
+article > h1:first-of-type {
+    font-size: 2rem;
+}
+
 h1 {
-    font-size: 24px;
+    font-size: 1.5rem;
 }
 
 h2 {
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 aside.info {
     color: #555;
-    font-size: 14px;
+    font-size: 0.8rem;
     font-style: italic;
 }
+
+/* {{{ Code blocks ***********************************************************/
 
 pre.code-block {
     position: relative;
     background-color: #f8f8f8;
-    padding-top: 1rem;
-    padding-right: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
+    padding: 1rem;
+    margin: 0;
 }
 
-.copy-code-button,
-.copy-code-button span {
-    cursor: pointer;
-    transition: all 0.25s ease;
+pre.code-block[data-lang]::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    color: #ccc;
+    height: 0.8rem;
+    font-size: 0.6rem;
+    font-weight: 600;
+    line-height: 0.8rem;
+    text-align: right;
+
+    content: attr(data-lang);
+
+    padding: 5px 10px 0;
 }
 
-.copy-code-button {
+pre.code-block > button.copy-code-button {
     position: absolute;
     z-index: 1;
     top: 0;
@@ -90,14 +132,20 @@ pre.code-block {
     opacity: 0;
 }
 
-.copy-code-button span {
+pre.code-block > button.copy-code-button,
+pre.code-block > button.copy-code-button > span {
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+pre.code-block > button.copy-code-button > span {
     border-radius: 3px;
     background: inherit;
     pointer-events: none;
 }
 
-.copy-code-button .error,
-.copy-code-button .success {
+pre.code-block > button.copy-code-button > span.error,
+pre.code-block > button.copy-code-button > span.success {
     position: absolute;
     z-index: -100;
     top: 50%;
@@ -108,17 +156,21 @@ pre.code-block {
     transform: translate(0, -50%);
 }
 
-.copy-code-button.error .error,
-.copy-code-button.success .success {
+pre.code-block > button.copy-code-button.error > span.error,
+pre.code-block > button.copy-code-button.success > span.success {
     right: 100%;
     opacity: 1;
     transform: translate(-115%, -50%);
 }
 
-.copy-code-button:focus,
-pre:hover .copy-code-button {
+pre.code-block > button.copy-code-button:focus,
+pre.code-block:hover > button.copy-code-button {
     opacity: 1;
 }
+
+/* }}} Code blocks ***********************************************************/
+
+/* {{{ Heading anchors *******************************************************/
 
 a.anchor-link {
     visibility: hidden;
@@ -128,11 +180,13 @@ a.anchor-link {
     color: #808080;
 }
 
-h1:hover a.anchor-link,
-h2:hover a.anchor-link,
-h3:hover a.anchor-link,
-h4:hover a.anchor-link,
-h5:hover a.anchor-link,
-h6:hover a.anchor-link {
+h1:hover > a.anchor-link,
+h2:hover > a.anchor-link,
+h3:hover > a.anchor-link,
+h4:hover > a.anchor-link,
+h5:hover > a.anchor-link,
+h6:hover > a.anchor-link {
     visibility: visible;
 }
+
+/* }}} Heading anchors *******************************************************/

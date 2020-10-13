@@ -1,5 +1,6 @@
 ---
 title: Configure services with Dhall
+updated: "2020-10-13"
 ---
 
 For services, running inside a docker container, parsing command line options
@@ -56,7 +57,7 @@ While there are myriad of way this can be defined, the simplest of them that
 can be easily used with containers is just providing `CONFIG` environment
 variable:
 
-```
+``` {data-lang=usage}
 CONFIG=EXPR EXECUTABLE
 ```
 
@@ -64,17 +65,17 @@ While this is certainly useful, it doesn't allow us to use the full power of
 Haskell and Dhall pairing. Instead, we'll use the following command-line
 contract for our `EXECUTABLE`s:
 
-```
+``` {data-lang=usage}
 [CONFIG=EXPR] EXECUTABLE [--config=EXPR] [--typecheck]
 EXECUTABLE --print-config-type
 ```
 
 We have two ways of how we can pass the configuration value:
 
-*   `CONFIG=EXPR` environment variable where the value is a Dhall expression.
+*   `CONFIG=EXPR`{.bash} environment variable where the value is a Dhall expression.
     For example simple server may need this:
 
-    ```bash
+    ``` {.bash data-lang=bash}
     export CONFIG='
       { api =
         { port = 8080
@@ -87,37 +88,37 @@ We have two ways of how we can pass the configuration value:
       }'
     ```
 
-*   `--config=EXPR` command line option. This is the same as passing it the
+*   `--config=EXPR`{.bash} command line option. This is the same as passing it the
     configuration through environment variable, but it should be noted that if
     we allow server to support Dhall imports then following will work out of
     the box:
 
-    -   `--config=FILE` where `FILE` is an absolute file path or one starting
-        with `./` or `~/`.  This allows us to handle passing files out of the
-        box without needing to handle it explicitly or to provide another
-        option like `--config-file=FILE`
+    -   `--config=FILE`{.bash} where `FILE` is an absolute file path or one
+        starting with `./` or `~/`.  This allows us to handle passing files out
+        of the box without needing to handle it explicitly or to provide
+        another option like `--config-file=FILE`
 
-    -   `--config=env:ENV_VAR` where `ENV_VAR` is a name of an environment
-        variable. This actually allows us to use different environment variable
-        than `CONFIG` if the situation requires it.
+    -   `--config=env:ENV_VAR`{.bash} where `ENV_VAR` is a name of an
+        environment variable. This actually allows us to use different
+        environment variable than `CONFIG` if the situation requires it.
 
 In addition to that we have two additional configuration options:
 
-*   `--typecheck` that allows us to run the `EXECUTABLE` in dry-run mode where
-    we only parse and type-check the configuration.
+*   `--typecheck`{.bash} that allows us to run the `EXECUTABLE` in dry-run mode
+    where we only parse and type-check the configuration.
 
     We can make this part of our build or deployment pipeline to verify that we
     hadn't forgotten to update the configuration before we attempt to start the
     service/container.
 
-*   `--print-config-type` is a very useful way of querying the `EXECUTABLE` it
-    self to tell us what it's configuration looks like. There's nothing easier
-    than running `EXECUTABLE --print-config-type`, saving it into a file, and
-    then writing the config file based on it.
+*   `--print-config-type`{.bash} is a very useful way of querying the
+    `EXECUTABLE` it self to tell us what it's configuration looks like. There's
+    nothing easier than running `EXECUTABLE --print-config-type`, saving it
+    into a file, and then writing the config file based on it.
 
 Something that should be noted about the following calling convention:
 
-```Bash
+``` {data-lang=usage}
 [CONFIG=EXPR] EXECUTABLE [--config=EXPR] [--typecheck]
 ```
 
@@ -156,7 +157,7 @@ classified into following methods:
     configuration definition to use something like (example is hypothetical and
     is written in Dhall):
 
-    ```dhall
+    ``` {.dhall data-lang=dhall}
     let Secret = < Value : Text | Reference : Text >
 
     in  { database =
@@ -208,7 +209,7 @@ Some related articles:
 Dhall supports imports in the form `env:ENV_VAR` where `ENV_VAR` is a name of
 an environment variable. What it allows us to do is:
 
-```dhall
+``` {.dhall data-lang=dhall}
 { database =
   { host = "database.example.com"
   , port = 5432
@@ -240,7 +241,7 @@ Some related articles:
 File paths are imports in Dhall the same way as `env:ENV_VAR` or an URL is.
 This allows us to easily use the same syntax to access files:
 
-```dhall
+``` {.dhall data-lang=dhall}
 { database =
   { host = "database.example.com"
   , port = 5432
@@ -255,8 +256,8 @@ This allows us to easily use the same syntax to access files:
 Where `/config/db-user` and `/config/db-passowrd` are files volume mounted into
 the container and they contain the secrets.
 
-The `env:ENV_VAR as Text` means that the value of `ENV_VAR` will be treated as
-is, instead of Dhall expression.
+The `/file/path as Text` means that the contents of `/file/path` will be
+imported as is, instead of Dhall expression.
 
 Some related articles:
 
@@ -284,7 +285,7 @@ first, and go back to them later.
 The implementation is split into two modules `Main` and `Configuration`.  We'll
 start with the `Main` (Haskell entry point) to set the stage:
 
-```haskell
+``` {.haskell data-lang=haskell}
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
@@ -360,7 +361,7 @@ service = {- ... -}
 Now the implementation of `getConfiguration` that allows us to be so brief in
 the `Main` module:
 
-```haskell
+``` {.haskell data-lang=haskell}
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -533,7 +534,8 @@ The above code was tested and built with:
 If we compile the above code (with some sensible definition for `service`) and
 name it `example-service` then we get following help message:
 
-```
+``` {data-lang=console}
+user@machine:~ $ ./example-service --help
 Very useful info those that call the '--help'.
 
 Usage: example-service [--print-config-type | [--typecheck] [--config EXPR]]
@@ -552,7 +554,8 @@ Available options:
 
 If we don't supply a configuration we get:
 
-```
+``` {data-lang=console}
+user@machine:~ $ ./example-service
 Either `CONFIG=EXPR' environment variable or `--config=EXPR' command-line
 option must be specified
 ```
@@ -560,8 +563,8 @@ option must be specified
 And when we supply an incorrect configuration we get a pretty good idea what's
 going on:
 
-```
-$ ./example-service --config='{=}'
+``` {data-lang=console}
+user@machine:~ $ ./example-service --config='{=}'
 example-service:
 Error: Expression doesn't match annotation
 
