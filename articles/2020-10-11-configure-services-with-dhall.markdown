@@ -96,7 +96,7 @@ We have two ways of how we can pass the configuration value:
     -   `--config=FILE`{.bash} where `FILE` is an absolute file path or one
         starting with `./` or `~/`.  This allows us to handle passing files out
         of the box without needing to handle it explicitly or to provide
-        another option like `--config-file=FILE`
+        another option like `--config-file=FILE`{.bash}
 
     -   `--config=env:ENV_VAR`{.bash} where `ENV_VAR` is a name of an
         environment variable. This actually allows us to use different
@@ -113,8 +113,8 @@ In addition to that we have two additional configuration options:
 
 *   `--print-config-type`{.bash} is a very useful way of querying the
     `EXECUTABLE` it self to tell us what it's configuration looks like. There's
-    nothing easier than running `EXECUTABLE --print-config-type`, saving it
-    into a file, and then writing the config file based on it.
+    nothing easier than running `EXECUTABLE --print-config-type`{.bash}, saving
+    it into a file, and then writing the config file based on it.
 
 Something that should be noted about the following calling convention:
 
@@ -122,10 +122,10 @@ Something that should be noted about the following calling convention:
 [CONFIG=EXPR] EXECUTABLE [--config=EXPR] [--typecheck]
 ```
 
-Is that at least either `CONFIG=EXPR` or `--config=EXPR` must be supplied when
-running the service. This is to avoid having defaults in our services. While it
-can be useful to start the service with test configuration, it can easily lead
-to production misconfiguration.
+Is that at least either `CONFIG=EXPR`{.bash} or `--config=EXPR`{.bash} must be
+supplied when running the service. This is to avoid having defaults in our
+services. While it can be useful to start the service with test configuration,
+it can easily lead to production misconfiguration.
 
 Some related articles:
 
